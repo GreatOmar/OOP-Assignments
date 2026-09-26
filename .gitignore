@@ -1,0 +1,15 @@
+## .NET / Visual Studio
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.vscode/
+artifacts/
+TestResults/
+*.nuget.*
+project.lock.json
+nupkg/
+[Pp]ackages/
+.idea/
+*.swp
