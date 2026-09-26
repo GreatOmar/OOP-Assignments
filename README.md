@@ -62,9 +62,34 @@ Prof. Sara Hassan is teaching "Object-Oriented Programming".
 
 ## Project Structure
 
+Two independent console projects grouped under one .NET solution:
+
 ```
-Program.cs                     # explicit Main entry point / demo
-OopHierarchy.csproj            # net10.0 console project
-src/VehicleHierarchy/          # Vehicle, Car, Bus, Motorcycle
-src/UniversityMembers/         # Person, Student, Employee, Teacher
+OopHierarchies.sln               # solution wiring both projects together
+VehicleHierarchy/                # Exercise 1 console app
+  VehicleHierarchy.csproj
+  Program.cs                     # entry point: tests Car, Bus, Motorcycle
+  Vehicle.cs, Car.cs, Bus.cs, Motorcycle.cs
+UniversityMembers/               # Exercise 2 console app
+  UniversityMembers.csproj
+  Program.cs                     # entry point: tests Student, Teacher
+  Person.cs, Student.cs, Employee.cs, Teacher.cs
+```
+
+## Running the Exercises
+
+Build everything at once:
+
+```bash
+dotnet build OopHierarchies.sln
+```
+
+Run each exercise independently:
+
+```bash
+# Exercise 1: Vehicle Hierarchy
+dotnet run --project VehicleHierarchy
+
+# Exercise 2: University Members
+dotnet run --project UniversityMembers
 ```

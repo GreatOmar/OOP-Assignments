@@ -5,7 +5,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>OopHierarchy</RootNamespace>
+    <RootNamespace>UniversityMembers</RootNamespace>
   </PropertyGroup>
 
 </Project>

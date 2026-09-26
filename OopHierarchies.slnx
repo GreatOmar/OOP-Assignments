@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="UniversityMembers/UniversityMembers.csproj" />
+  <Project Path="VehicleHierarchy/VehicleHierarchy.csproj" />
+</Solution>
