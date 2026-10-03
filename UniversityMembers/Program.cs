@@ -1,128 +1,125 @@
 // Explicit entry point (no top-level statements).
-// Exercise 2: University members — all classes in this single file.
+// Exercise 17: University Members — all classes in this single file.
+// Focus: virtual/override polymorphism, GetType() vs static type,
+//        and polymorphism through a method parameter.
 using System;
+using System.Collections.Generic;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        Console.WriteLine("========== Exercise 2: University Members ==========");
-        Console.WriteLine("-- Constructor execution order (base -> derived) --");
-        var student = new Student("Omar Ali", "omar.ali@uni.edu", studentId: "S-2026-001", gpa: 3.8);
-        Console.WriteLine();
-        var teacher = new Teacher(
-            "Sara Hassan", "sara.hassan@uni.edu",
-            employeeId: "E-1001", salary: 45000m, courseName: "Object-Oriented Programming");
+        Console.WriteLine("===== Exercise 17: University Members =====");
 
-        Console.WriteLine();
-        Console.WriteLine("-- Behavior: inherited + specialized methods --");
-        student.DisplayBasicInfo(); // inherited from Person
-        student.Study();            // specialized
+        // One object of each type, stored through the base type.
+        var members = new List<Person>
+        {
+            new Student("Omar Ali", 1),
+            new Employee("Mona Adel", 5500m),
+            new Teacher("Sara Hassan", 7000m, "Object-Oriented Programming")
+        };
 
-        Console.WriteLine();
-        teacher.DisplayBasicInfo(); // inherited from Person (two levels up)
-        teacher.Work();             // inherited from Employee
-        teacher.Teach();            // specialized
-
-        Console.WriteLine();
-        // Polymorphism: treat every member as its base type Person.
-        Console.WriteLine("-- Polymorphic collection (List<Person>) --");
-        var members = new List<Person> { student, teacher };
+        Console.WriteLine("-- One foreach loop, virtual DisplayInfo() --");
         foreach (Person member in members)
         {
-            member.DisplayBasicInfo();
+            // GetType() returns the RUNTIME type, not the declared type —
+            // proof that the override, not the variable type, decides behavior.
+            Console.WriteLine($"Runtime type: {member.GetType().Name}");
+            member.DisplayInfo();
+            Console.WriteLine();
         }
+
+        Console.WriteLine("-- Method accepting a base Person --");
+        // All three derive from Person, so all three fit the parameter.
+        DisplayMember(members[0]);
+        DisplayMember(members[1]);
+        DisplayMember(members[2]);
+    }
+
+    /// <summary>
+    /// Accepts ANY Person (or derived object) and lets the runtime
+    /// type pick the right override — polymorphism via a parameter.
+    /// </summary>
+    private static void DisplayMember(Person person)
+    {
+        Console.WriteLine($"[{person.GetType().Name} passed to DisplayMember]");
+        person.DisplayInfo();
     }
 }
 
 /// <summary>
-/// Base class of the hierarchy. Holds the shared state (Name, Email)
-/// and behavior (DisplayBasicInfo) common to every university member.
+/// Base class: shared state (Name) and a virtual method that every
+/// derived class may customize with override.
 /// </summary>
 internal class Person
 {
     public string Name { get; }
-    public string Email { get; }
 
-    public Person(string name, string email)
+    public Person(string name)
     {
         Name = name;
-        Email = email;
-        Console.WriteLine($"[Person ctor] {Name} <{Email}>");
     }
 
-    public void DisplayBasicInfo()
+    public virtual void DisplayInfo()
     {
-        Console.WriteLine($"{Name} | Email: {Email}");
+        Console.WriteLine($"Person: {Name}");
     }
 }
 
 /// <summary>
-/// A student: adds StudentId and GPA to the shared Person state.
+/// A student: adds StudentId and overrides DisplayInfo().
 /// </summary>
 internal class Student : Person
 {
-    public string StudentId { get; }
-    public double GPA { get; }
+    public int StudentId { get; }
 
-    public Student(string name, string email, string studentId, double gpa)
-        : base(name, email)
+    public Student(string name, int studentId)
+        : base(name)
     {
         StudentId = studentId;
-        GPA = gpa;
-        Console.WriteLine($"[Student ctor] id = {StudentId}, GPA = {GPA}");
     }
 
-    /// <summary>Specialized behavior only a Student has.</summary>
-    public void Study()
+    public override void DisplayInfo()
     {
-        Console.WriteLine($"{Name} (GPA: {GPA:F1}) is studying for the next exam.");
+        Console.WriteLine($"Student: {Name} | ID: {StudentId}");
     }
 }
 
 /// <summary>
-/// An employee: adds EmployeeId and Salary to the shared Person state,
-/// and is itself the base for Teacher (multi-level inheritance).
+/// An employee: adds Salary and overrides DisplayInfo().
 /// </summary>
 internal class Employee : Person
 {
-    public string EmployeeId { get; }
     public decimal Salary { get; }
 
-    public Employee(string name, string email, string employeeId, decimal salary)
-        : base(name, email)
+    public Employee(string name, decimal salary)
+        : base(name)
     {
-        EmployeeId = employeeId;
         Salary = salary;
-        Console.WriteLine($"[Employee ctor] id = {EmployeeId}, salary = {Salary:C}");
     }
 
-    /// <summary>Specialized behavior only an Employee has.</summary>
-    public void Work()
+    public override void DisplayInfo()
     {
-        Console.WriteLine($"{Name} ({EmployeeId}) is working. Salary: {Salary:C}");
+        Console.WriteLine($"Employee: {Name} | Salary: {Salary:C}");
     }
 }
 
 /// <summary>
-/// A teacher: an Employee who also has a CourseName — the deepest
-/// link of the chain, exercising multi-level constructor chaining
-/// (Teacher -> Employee -> Person).
+/// A teacher: an Employee who also adds CourseName and overrides
+/// DisplayInfo() with its own version.
 /// </summary>
 internal class Teacher : Employee
 {
     public string CourseName { get; }
 
-    public Teacher(string name, string email, string employeeId, decimal salary, string courseName)
-        : base(name, email, employeeId, salary)
+    public Teacher(string name, decimal salary, string courseName)
+        : base(name, salary)
     {
         CourseName = courseName;
-        Console.WriteLine($"[Teacher ctor] course = {CourseName}");
     }
 
-    /// <summary>Specialized behavior only a Teacher has.</summary>
-    public void Teach()
+    public override void DisplayInfo()
     {
-        Console.WriteLine($"Prof. {Name} is teaching \"{CourseName}\".");
+        Console.WriteLine($"Teacher: {Name} | Salary: {Salary:C} | Course: {CourseName}");
     }
 }
