@@ -1,6 +1,3 @@
-// Explicit entry point (no top-level statements).
-// Exercise 18: Shape Areas — all classes in this single file.
-// Note: virtual, not abstract — abstract classes belong to the next lecture.
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +5,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Console.WriteLine("===== Exercise 18: Shape Areas =====");
+        Console.WriteLine("===== Shape Areas =====");
 
         var shapes = new List<Shape>
         {
@@ -16,8 +13,8 @@ internal class Program
             new Rectangle(4, 5)
         };
 
-        // One loop over the base type: each call dispatches to the
-        // override of the runtime type.
+        Console.WriteLine();
+
         foreach (Shape shape in shapes)
         {
             Console.WriteLine($"{shape.GetType().Name} | Area = {shape.CalculateArea()}");
@@ -25,10 +22,6 @@ internal class Program
     }
 }
 
-/// <summary>
-/// Base class with a virtual area calculation; instances of Shape
-/// itself report an area of 0.
-/// </summary>
 internal class Shape
 {
     public virtual double CalculateArea()
@@ -37,9 +30,6 @@ internal class Shape
     }
 }
 
-/// <summary>
-/// A circle: adds Radius and overrides the area formula (πr²).
-/// </summary>
 internal class Circle : Shape
 {
     public double Radius { get; }
@@ -55,10 +45,6 @@ internal class Circle : Shape
     }
 }
 
-/// <summary>
-/// A rectangle: adds Width and Height and overrides the area
-/// formula (w × h).
-/// </summary>
 internal class Rectangle : Shape
 {
     public double Width { get; }

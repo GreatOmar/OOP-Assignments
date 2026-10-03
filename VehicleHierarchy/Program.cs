@@ -1,29 +1,26 @@
-// Explicit entry point (no top-level statements).
-// Exercise 1: Vehicle hierarchy — all classes in this single file.
 using System;
+using System.Collections.Generic;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        Console.WriteLine("========== Exercise 1: Vehicle Hierarchy ==========");
+        Console.WriteLine("========== Vehicle Hierarchy ==========");
+
         var car = new Car("Toyota", 2024, 4);
         var bus = new Bus("Mercedes", 2023, 50);
-        var bike = new Motorcycle("Harley-Davidson", 2022, hasSidecar: true);
+        var bike = new Motorcycle("Harley-Davidson", 2022, true);
 
         Console.WriteLine();
+
         var vehicles = new List<Vehicle> { car, bus, bike };
         foreach (Vehicle vehicle in vehicles)
         {
-            vehicle.Start(); // polymorphic dispatch through the base type
+            vehicle.Start();
         }
     }
 }
 
-/// <summary>
-/// Base class of the hierarchy. Holds the shared state (Brand, Year)
-/// and behavior (Start) common to every vehicle.
-/// </summary>
 internal class Vehicle
 {
     public string Brand { get; }
@@ -41,10 +38,6 @@ internal class Vehicle
     }
 }
 
-/// <summary>
-/// A car: adds its own specialized state (NumberOfDoors) to the
-/// shared Vehicle state via constructor chaining (base).
-/// </summary>
 internal class Car : Vehicle
 {
     public int NumberOfDoors { get; }
@@ -57,9 +50,6 @@ internal class Car : Vehicle
     }
 }
 
-/// <summary>
-/// A bus: adds passenger Capacity to the shared Vehicle state.
-/// </summary>
 internal class Bus : Vehicle
 {
     public int Capacity { get; }
@@ -72,9 +62,6 @@ internal class Bus : Vehicle
     }
 }
 
-/// <summary>
-/// A motorcycle: adds a boolean flag (HasSidecar) to the shared Vehicle state.
-/// </summary>
 internal class Motorcycle : Vehicle
 {
     public bool HasSidecar { get; }

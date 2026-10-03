@@ -20,7 +20,7 @@ single `Program.cs`** (no top-level statements — an explicit
 
 ## Class Hierarchies
 
-**Exercise 1 — Vehicles** (`VehicleHierarchy`)
+**Vehicle Hierarchy** (`VehicleHierarchy`)
 
 ```
             Vehicle (Brand, Year)
@@ -30,7 +30,7 @@ single `Program.cs`** (no top-level statements — an explicit
 (Doors) (Capacity)   (HasSidecar)
 ```
 
-**Exercise 17 — University Members** (`UniversityMembers`)
+**University Members** (`UniversityMembers`)
 
 ```
             Person (Name)
@@ -43,7 +43,7 @@ DisplayInfo()    Teacher (CourseName)
                    override DisplayInfo()
 ```
 
-**Exercise 18 — Shape Areas** (`ShapeAreas`) — *virtual, not abstract*
+**Shape Areas** (`ShapeAreas`) — *virtual, not abstract*
 
 ```
             Shape
@@ -62,13 +62,13 @@ single `Program.cs`** — entry point plus all hierarchy classes in one file:
 
 ```
 OopHierarchies.sln               # solution wiring the projects together
-VehicleHierarchy/                # Exercise 1 console app
+VehicleHierarchy/                # console app
   VehicleHierarchy.csproj
   Program.cs                     # entry point + Vehicle, Car, Bus, Motorcycle
-UniversityMembers/               # Exercise 17 console app
+UniversityMembers/               # console app
   UniversityMembers.csproj
   Program.cs                     # entry point + Person, Student, Employee, Teacher
-ShapeAreas/                      # Exercise 18 console app
+ShapeAreas/                      # console app
   ShapeAreas.csproj
   Program.cs                     # entry point + Shape, Circle, Rectangle
 ```
@@ -86,21 +86,20 @@ dotnet build OopHierarchies.sln
 Run each exercise independently:
 
 ```bash
-# Exercise 1: Vehicle Hierarchy
+# Vehicle Hierarchy
 dotnet run --project VehicleHierarchy
 
-# Exercise 17: University Members
+# University Members
 dotnet run --project UniversityMembers
 
-# Exercise 18: Shape Areas
+# Shape Areas
 dotnet run --project ShapeAreas
 ```
 
 ## Sample Output
 
 ```
-===== Exercise 17: University Members =====
--- One foreach loop, virtual DisplayInfo() --
+===== University Members =====
 Runtime type: Student
 Student: Omar Ali | ID: 1
 
@@ -110,7 +109,7 @@ Employee: Mona Adel | Salary: $5,500.00
 Runtime type: Teacher
 Teacher: Sara Hassan | Salary: $7,000.00 | Course: Object-Oriented Programming
 
-===== Exercise 18: Shape Areas =====
+===== Shape Areas =====
 Circle | Area = 28.274333882308138
 Rectangle | Area = 20
 ```
