@@ -131,27 +131,3 @@ dotnet run --project UniversityMembersInheritance
 dotnet run --project ShapeAreas
 ```
 
-## Sample Output
-
-```
-===== University Members — Inheritance & Constructor Chaining =====
--- Constructor execution order (base -> derived) --
-[Person ctor] Sara Hassan <sara.hassan@uni.edu>
-[Employee ctor] id = E-1001, salary = $45,000.00
-[Teacher ctor] course = Object-Oriented Programming
-Prof. Sara Hassan is teaching "Object-Oriented Programming".
-
-===== University Members — Polymorphism =====
-Runtime type: Student
-Student: Omar Ali | ID: 1
-
-Runtime type: Employee
-Employee: Mona Adel | Salary: $5,500.00
-
-Runtime type: Teacher
-Teacher: Sara Hassan | Salary: $7,000.00 | Course: Object-Oriented Programming
-
-===== Shape Areas =====
-Circle | Area = 28.274333882308138
-Rectangle | Area = 20
-```
