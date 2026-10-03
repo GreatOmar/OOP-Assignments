@@ -1,9 +1,12 @@
 # OOP Assignments in C# (.NET)
 
-Three classic object-oriented inheritance exercises implemented in C#,
+Four classic object-oriented inheritance exercises implemented in C#,
 each an independent console project with its **entire exercise in a
 single `Program.cs`** (no top-level statements — an explicit
 `Program.Main` is the entry point), grouped under one .NET solution.
+
+Two of them are different takes on the same "University Members"
+hierarchy — see [the two University Members exercises](#the-two-university-members-exercises).
 
 ## Concepts Demonstrated
 
@@ -30,7 +33,7 @@ single `Program.cs`** (no top-level statements — an explicit
 (Doors) (Capacity)   (HasSidecar)
 ```
 
-**University Members** (`UniversityMembers`)
+**University Members — Polymorphism** (`UniversityMembers`)
 
 ```
             Person (Name)
@@ -41,6 +44,19 @@ single `Program.cs`** (no top-level statements — an explicit
   override         │
 DisplayInfo()    Teacher (CourseName)
                    override DisplayInfo()
+```
+
+**University Members — Inheritance & Constructor Chaining** (`UniversityMembersInheritance`)
+
+```
+            Person (Name, Email)
+            │       DisplayBasicInfo()
+    ┌───────┴────────┐
+ Student          Employee (EmployeeId, Salary)
+(StudentId,          │      Work()
+  GPA)               │
+  Study()          Teacher (CourseName)
+                      Teach()
 ```
 
 **Shape Areas** (`ShapeAreas`) — *virtual, not abstract*
@@ -68,10 +84,26 @@ VehicleHierarchy/                # console app
 UniversityMembers/               # console app
   UniversityMembers.csproj
   Program.cs                     # entry point + Person, Student, Employee, Teacher
+UniversityMembersInheritance/    # console app
+  UniversityMembersInheritance.csproj
+  Program.cs                     # entry point + Person, Student, Employee, Teacher
 ShapeAreas/                      # console app
   ShapeAreas.csproj
   Program.cs                     # entry point + Shape, Circle, Rectangle
 ```
+
+## The Two University Members Exercises
+
+Both build the same `Person → Student / Employee → Teacher` hierarchy,
+but each demonstrates a different concept:
+
+| | `UniversityMembers` | `UniversityMembersInheritance` |
+|---|---|---|
+| **Focus** | Polymorphism | Inheritance & constructor chaining |
+| **Method style** | `virtual` / `override DisplayInfo()` | Plain methods, no overriding |
+| **Constructor chaining** | Implicit (default constructors) | Explicit `base(...)` calls with constructor logs |
+| **Polymorphic usage** | `List<Person>` + one `foreach`, `GetType()` runtime types, `DisplayMember(Person)` | One `Student` + one `Teacher`, calling inherited **and** specialized methods (`Study()`, `Work()`, `Teach()`) |
+| **What it proves** | The runtime type picks the override | Base constructors always run first: `Person → Employee → Teacher` |
 
 ## Getting Started
 
@@ -89,8 +121,11 @@ Run each exercise independently:
 # Vehicle Hierarchy
 dotnet run --project VehicleHierarchy
 
-# University Members
+# University Members (Polymorphism)
 dotnet run --project UniversityMembers
+
+# University Members (Inheritance & Constructor Chaining)
+dotnet run --project UniversityMembersInheritance
 
 # Shape Areas
 dotnet run --project ShapeAreas
@@ -99,7 +134,14 @@ dotnet run --project ShapeAreas
 ## Sample Output
 
 ```
-===== University Members =====
+===== University Members — Inheritance & Constructor Chaining =====
+-- Constructor execution order (base -> derived) --
+[Person ctor] Sara Hassan <sara.hassan@uni.edu>
+[Employee ctor] id = E-1001, salary = $45,000.00
+[Teacher ctor] course = Object-Oriented Programming
+Prof. Sara Hassan is teaching "Object-Oriented Programming".
+
+===== University Members — Polymorphism =====
 Runtime type: Student
 Student: Omar Ali | ID: 1
 

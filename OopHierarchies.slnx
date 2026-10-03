@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="ShapeAreas/ShapeAreas.csproj" />
   <Project Path="UniversityMembers/UniversityMembers.csproj" />
+  <Project Path="UniversityMembersInheritance/UniversityMembersInheritance.csproj" />
   <Project Path="VehicleHierarchy/VehicleHierarchy.csproj" />
 </Solution>

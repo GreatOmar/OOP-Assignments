@@ -11,7 +11,7 @@ internal class Program
 
     private static void Main(string[] args)
     {
-        Console.WriteLine("===== University Members =====");
+        Console.WriteLine("===== University Members — Polymorphism =====");
 
         var members = new List<Person>
         {
